@@ -168,6 +168,10 @@ public:
         tail = length - 1;
         capacity *= 2;
     }
+
+    void Delete() {
+        delete[] array;
+    }
 };
 
 
