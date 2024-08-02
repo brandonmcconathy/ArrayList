@@ -100,7 +100,7 @@ public:
             AddToEmpty(val);
         }
         else {
-            tail = (tail + 1) % (capacity - 1);
+            tail = (tail + 1) % capacity;
             array[tail] = val;
             ++length;
         }
@@ -116,7 +116,7 @@ public:
         }
         else {
             if (head == 0) {
-                head = length - 1;
+                head = capacity - 1;
                 array[head] = val;
             }
             else {
@@ -162,11 +162,18 @@ public:
     void Resize() {
         int* tempArr = new int[capacity * 2];
         for (int i = 0; i < length; ++i) {
-            tempArr[i] = array[(head + i) % (capacity - 1)];
+            tempArr[i] = array[(head + i) % capacity];
         }
+        array = tempArr;
         head = 0;
         tail = length - 1;
         capacity *= 2;
+    }
+
+    void PrintList() {
+        for (int i = 0; i < length; ++i) {
+            std::cout << i << ": " << array[(i + head) % capacity] << std::endl;
+        }
     }
 
     void Delete() {
@@ -177,17 +184,36 @@ public:
 
 int main(int argc, const char* argv[]) {
 
-    ArrayList* arr = new ArrayList(5);
+    ArrayList arr(5);
 
-    arr->Pushback(10);
-    arr->Pushback(5);
-    arr->Pushback(2);
-    arr->Pushback(20);
-    arr->Pushback(15);
+    arr.Pushback(10);
+    arr.Pushback(5);
+    arr.Pushback(2);
+    arr.Pushback(20);
+    arr.Pushback(15);
 
-    arr->PrintList();
+    arr.PrintList();
 
-    arr->Delete();
+    arr.Delete();
+
+    std::cout << "\nRing Buffer:" << std::endl;
+
+    RingBuffer ring(5);
+
+    ring.Push(20);
+    ring.Push(5);
+    ring.Push(22);
+    ring.PushHead(21);
+    ring.Push(7);
+    ring.Push(31);
+    ring.Push(57);
+
+    ring.PrintList();
+
+    std::cout << "\n Ring Buffer Removals: " << std::endl;
+
+    ring.PrintList();
+
 
     return 0;
 }
