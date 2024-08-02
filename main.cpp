@@ -159,6 +159,19 @@ public:
         --length;
     }
 
+    void Insert(int val) {
+        if (length == capacity) {
+            Resize();
+        }
+
+        if (length == 0) {
+            AddToEmpty(val);
+        }
+        else {
+
+        }
+    }
+
     void Resize() {
         int* tempArr = new int[capacity * 2];
         for (int i = 0; i < length; ++i) {
@@ -213,6 +226,8 @@ int main(int argc, const char* argv[]) {
     std::cout << "\n Ring Buffer Removals: " << std::endl;
 
     ring.PrintList();
+
+    ring.Delete();
 
 
     return 0;
