@@ -159,7 +159,7 @@ public:
         --length;
     }
 
-    void Insert(int val) {
+    void Insert(int val, int index) {
         if (length == capacity) {
             Resize();
         }
@@ -168,7 +168,11 @@ public:
             AddToEmpty(val);
         }
         else {
-
+            for (int i = length; i >= index; --i) {
+                array[(i + 1 + head) % capacity] = array[(i + head) % capacity];
+            }
+            array[(index + head) % capacity] = val;
+            ++length;
         }
     }
 
@@ -224,6 +228,12 @@ int main(int argc, const char* argv[]) {
     ring.PrintList();
 
     std::cout << "\n Ring Buffer Removals: " << std::endl;
+
+    ring.PrintList();
+
+    std::cout << "\n Ringer Buffer Insert: " << std::endl;
+
+    ring.Insert(17, 3);
 
     ring.PrintList();
 
